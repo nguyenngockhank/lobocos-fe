@@ -1,6 +1,6 @@
 import type { OrderResponse } from "@/Calendar/calendarApi";
 
-export const columnsConfig = [
+export const orderColumnsConfig = [
     {
         title: 'Mã Đơn',
         key: 'id',

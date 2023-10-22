@@ -25,3 +25,8 @@ export async function getOrdersByMonth(payload: OrdersByMonthPayload) {
         }
     });
 }
+
+export async function getOrder(orderId: string | number ) {
+    const { data } = await apiClient.get<OrderResponse>(`/orders/restapi/order/${orderId}`);
+    return data;
+}

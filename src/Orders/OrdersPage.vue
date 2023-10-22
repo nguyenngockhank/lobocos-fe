@@ -64,7 +64,7 @@ import { useOrdersStore } from './OrdersStore'
 import { computed, onBeforeMount, ref, watch } from 'vue';
 import { formatMoney } from "@/utils/formatMoney"
 
-import { columnsConfig as columns } from './columnsConfig'
+import { orderColumnsConfig as columns } from './constants/orderColumnsConfig'
 import sumBy from 'lodash/sumBy'
 
 const chosenMonth = ref(dayjs())

@@ -37,10 +37,6 @@ const dashboardPageInfo = {
     routes: [dashboardBreadItem]
 }
 
-const ordersPageInfo = {
-    title: 'Đơn hàng nè',
-    routes: [dashboardBreadItem, ordersBreadItem]
-}
 const calendarPageInfo = {
     title: 'Lịch làm việc',
     routes: [dashboardBreadItem, calendarBreadItem]
@@ -48,6 +44,11 @@ const calendarPageInfo = {
 const consumersPageInfo = {
     title: 'Khách hàng',
     routes: [dashboardBreadItem, consumersBreadItem]
+}
+
+const ordersPageInfo = {
+    title: 'Đơn hàng nè',
+    routes: [dashboardBreadItem, ordersBreadItem]
 }
 
 export const usePageHeaderStore = defineStore('breadcrumb', () => {
@@ -63,8 +64,24 @@ export const usePageHeaderStore = defineStore('breadcrumb', () => {
 
     const activeDashboard = () => setPageInfo(dashboardPageInfo)
     const activeOrders = () => setPageInfo(ordersPageInfo)
+    const activeOrder = (orderId: string) => {
+        setPageInfo({
+            title: `Đơn hàng #${orderId}`,
+            subtitle: '...',
+            routes: [
+                ...ordersPageInfo.routes, { 
+                    path: `orders/${orderId}`,
+                    breadcrumbName: `#${orderId}`,
+                }
+            ]
+        })
+    }
     const activeCalendar = () => setPageInfo(calendarPageInfo)
     const activeConsumers = () => setPageInfo(consumersPageInfo)
     
-    return { routes, title, subtitle, activeDashboard, activeOrders, activeCalendar, activeConsumers, setPageInfo }
+    return { 
+        routes, title, subtitle, 
+        activeDashboard, activeOrders, activeOrder, activeCalendar, activeConsumers, 
+        setPageInfo 
+    }
 })

@@ -23,6 +23,6 @@ export const useOrdersStore = defineStore('orders', () => {
         cache[key] = sortBy(newData, 'deadline_at', 'desc'); 
         orders.value = cache[key] ;
     }
-    
-    return { orders, fetchOrders }
+
+    return { orders, fetchOrders,  }
 })

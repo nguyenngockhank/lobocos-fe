@@ -11,5 +11,16 @@ export const useConsumersStore = defineStore('consumers', () => {
         const newData = await fetchAllConsumers()
         consumers.value = newData;
     }
-    return { consumers, fetchConsumers }
+
+    const fetchConsumer = async (id: number | string) => {
+        if (!id) {
+            return null;
+        }
+        if (consumers.value.length === 0) {
+            await fetchConsumers()
+        }
+        return consumers.value.find(c => c.id.toString() === id.toString())
+    }
+
+    return { consumers, fetchConsumers, fetchConsumer }
 })

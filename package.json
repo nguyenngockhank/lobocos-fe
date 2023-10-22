@@ -18,6 +18,7 @@
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/vue3": "^6.1.9",
     "@types/lodash": "^4.14.200",
+    "@vueup/vue-quill": "^1.2.0",
     "ant-design-vue": "^4.0.6",
     "axios": "^1.5.1",
     "lodash": "^4.17.21",
