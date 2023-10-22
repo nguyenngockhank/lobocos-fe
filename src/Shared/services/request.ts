@@ -10,7 +10,8 @@ apiClient.defaults.maxRedirects = 0;
 
 apiClient.interceptors.response.use((response: AxiosResponse<any, any>) => {
     if (response.request?.responseURL?.endsWith('/admin/authentication')) {
-        location.href = response.request?.responseURL;
+        window.open(response.request?.responseURL, "_blank")
+        // location.href = response.request?.responseURL;
     }
     // Any status code that lie within the range of 2xx cause this function to trigger
     return response;

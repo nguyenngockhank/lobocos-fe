@@ -10,6 +10,8 @@ export type OrderResponse = {
     deadline_at: string; 
     start: string;
     status: string;
+    total: string | number;
+    total_paid: string | number;
 }
 
 type CalendarItem = {

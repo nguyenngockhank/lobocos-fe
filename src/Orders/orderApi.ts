@@ -15,6 +15,13 @@ export async function getOrdersByMonth(payload: OrdersByMonthPayload) {
         end: getEndDateOfMonth(date).toISOString(),
         full_select: true,
     }
+    
     const { data } = await apiClient.post<OrderResponse[]>('/orders/restapi/by_range', input);
-    return data;
+    return data.map(o => {
+        return {
+            ...o,
+            total: Number(o.total),
+            total_paid: Number(o.total_paid),
+        }
+    });
 }

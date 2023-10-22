@@ -15,19 +15,15 @@ import AppHeader from './AppHeader.vue'
         <RouterView />
       </div>
     </a-layout-content>
-    
     <AppFooter />
   </a-layout>
 </a-layout>
 </template>
 
-<style scoped>
-/* #components-layout-demo-responsive .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
-} */
-
+<style >
+.ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger-left {
+  top: 0!important;
+}
 .site-layout-sub-header-background {
   background: #fff;
 }
@@ -35,8 +31,4 @@ import AppHeader from './AppHeader.vue'
 .site-layout-background {
   background: #fff;
 }
-
-/* [data-theme='dark'] .site-layout-sub-header-background {
-  background: #141414;
-} */
 </style>
