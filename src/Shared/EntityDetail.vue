@@ -4,18 +4,20 @@ import EntityFieldDisplay from './Entity/EntityFieldDisplay.vue'
 import EntityFieldEditor from './Entity/EntityFieldEditor.vue'
 import { EditOutlined } from '@ant-design/icons-vue';
 import { computed, reactive, watch } from 'vue'
+import type { AsyncExecute } from '@/Orders/types';
+
 const emit = defineEmits<{
   (e: 'editAttr', payload: PatchOrderInput): void
 }>()
 
-
-const { entity, typeMap, ignoreAttrs, edittableAttrs, transformFieldValFn } = defineProps<{
+const { entity, typeMap, ignoreAttrs, edittableAttrs, transformFieldValFn, editMutation } = defineProps<{
     title?: String;
     entity: Record<string, any>;
     ignoreAttrs?: Array<string>;
     edittableAttrs?: Array<string>;
     labelMap: Record<string, string>;
     typeMap: Record<string, string>;
+    editMutation?: AsyncExecute<PatchOrderInput, void>;
     transformFieldValFn?: (field: string, entity: Record<string, any>) => any;
 }>()
 
@@ -67,13 +69,28 @@ function getFieldValue(field: string) {
     return entity[field];
 }
 
-function handleOkModal() {
-    emit('editAttr', { 
-        field: entityState.editingFieldModal, 
-        value: entityState.edittingModalValue 
-    })
+
+async function handleEditAttr(field: any, value: any) {
+    emit('editAttr', { field, value })
+    if (editMutation) {
+        await editMutation({ field, value })
+    }
+
+    console.log(entityState.editingFields)
+    entityState.editingFields = entityState.editingFields.filter(f => f !== field)
+
+    console.log(entityState.editingFields)
+}
+
+
+async function handleOkModal() {
+    await handleEditAttr(
+        entityState.editingFieldModal, 
+        entityState.edittingModalValue
+    );
     entityState.openEditModal = false
 }
+
 </script>
 
 <template>
@@ -90,6 +107,7 @@ function handleOkModal() {
             <EntityFieldEditor 
                 :value="entity[field]" 
                 :type="typeMap[field]" 
+                @save="(v: any) => handleEditAttr(field, v)"
             />
         </span>
         <a-space class="field-display" v-show="!isEdittingField(field)">

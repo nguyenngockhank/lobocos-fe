@@ -3,7 +3,7 @@
 import EntityDetail from "@/Shared/EntityDetail.vue"
 import { orderAttrLabelMap } from '../constants/orderAttrLabelMap'
 import { orderAttrTypeMap } from '../constants/orderAttrTypeMap'
-import { watch, reactive, onBeforeMount, computed} from "vue";
+import { watch, reactive, onBeforeMount, computed, ref} from "vue";
 import { useOrderStore } from './OrderStore'
 import { useRoute } from 'vue-router'
 import { storeToRefs, } from 'pinia'
@@ -29,7 +29,6 @@ onBeforeMount(async () => {
 });
 
 const transformFieldValFn = (field: string, entity: Record<string, any>) => {
-  // console.log("field", field)
   if (field === "consumer_id" && orderData.consumer) {
     return `#${orderData.consumer.id} ${orderData.consumer.fullname}`;
   }
@@ -40,8 +39,8 @@ watch(() => route.params.id,  async newId => {
   await orderStore.fetchOrder({ id: `${newId}` })
 })
 
-const handleEditAttr = (payload: PatchOrderInput) => {
-  orderStore.editOrderAttribute(payload)
+const handleEditAttr = async (payload: PatchOrderInput)  => {
+  await orderStore.editOrderAttribute(payload)
 }
 
 const deadlineStatus = computed(() => {
@@ -51,12 +50,24 @@ const deadlineStatus = computed(() => {
     
 <template>
 
-<a-row :gutter="16">
-  <a-col :span="12">
+<a-row >
+  <a-col >
     <h3>Deadline</h3>
-    <a-result v-if="deadlineStatus === 'red'" status="warning" title="Bạn đã trễ đơn hàng"></a-result>
+    <a-result 
+      v-if="deadlineStatus === 'danger'" 
+      status="warning" 
+      title="Bạn đã trễ đơn hàng"></a-result>
+    <a-result
+      v-else-if="deadlineStatus === 'completed'"
+      status="success"
+      title="Đơn của bạn đã được hoàn thành "
+    ></a-result>
     <a-tag v-else :color="deadlineStatus">
-      <a-statistic-countdown  style="{ color: }" :value="order?.deadline_at" format="D Ngày H giờ m phút s giây" />
+      <a-statistic-countdown  
+        style="{ color: }" 
+        :value="order?.deadline_at" 
+        format="D Ngày H giờ m phút s giây" 
+      />
     </a-tag>
 
   </a-col>
@@ -72,7 +83,7 @@ const deadlineStatus = computed(() => {
     :ignoreAttrs="ignoreAttrs"
     :edittableAttrs="edittableAttrs"
     :transformFieldValFn="transformFieldValFn"
-    @editAttr="handleEditAttr"
+    :editMutation="handleEditAttr"
 />
 <a-empty v-else></a-empty>
 </template>

@@ -1,14 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 const { value } = defineProps([
     'value',
 ])
 const dateFormat = "DD/MM/YYYY";
-const inputVal = dayjs(value, 'YYYY-MM-DD')
+const inputVal = ref(dayjs(value, 'YYYY-MM-DD'))
 
 function toDbFormat(v: Dayjs) {
     const month = v.month() + 1 + '';
-    const date = v.date() + 1 + '';
+    const date = v.date() + '';
     return `${v.year()}-${month.padStart(2, '0')}-${date.padStart(2, '0')}`
 }
 </script>
@@ -16,7 +17,7 @@ function toDbFormat(v: Dayjs) {
 <template>
 <a-date-picker 
     :format="dateFormat"
-    :value="inputVal"
+    v-model="inputVal"
     @change="(v: any) => $emit('input', toDbFormat(v))" 
 />
 </template>

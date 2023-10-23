@@ -2,7 +2,7 @@ import type { OrderResponse } from "@/Calendar/calendarApi";
 
 export function getStatusDeadline(order: Pick<OrderResponse, 'deadline_at' | 'status'>) {
     if (order.status === 'completed') {
-        return 'success';
+        return 'completed';
     }
 
     const now = new Date()
@@ -10,5 +10,5 @@ export function getStatusDeadline(order: Pick<OrderResponse, 'deadline_at' | 'st
     if (deadlineDate.getTime() > now.getTime()) {
       return 'warning';
     }
-    return 'red'; // danger, late
+    return 'danger'; // danger, late
 }
