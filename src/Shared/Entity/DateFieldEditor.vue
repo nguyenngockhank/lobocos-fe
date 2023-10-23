@@ -17,6 +17,6 @@ function toDbFormat(v: Dayjs) {
 <a-date-picker 
     :format="dateFormat"
     :value="inputVal"
-    @change="(v) => $emit('input', toDbFormat(v))" 
+    @change="(v: any) => $emit('input', toDbFormat(v))" 
 />
 </template>

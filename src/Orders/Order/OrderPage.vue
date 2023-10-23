@@ -3,11 +3,13 @@
 import EntityDetail from "@/Shared/EntityDetail.vue"
 import { orderAttrLabelMap } from '../constants/orderAttrLabelMap'
 import { orderAttrTypeMap } from '../constants/orderAttrTypeMap'
-import { watch, reactive, onBeforeMount} from "vue";
+import { watch, reactive, onBeforeMount, computed} from "vue";
 import { useOrderStore } from './OrderStore'
 import { useRoute } from 'vue-router'
 import { storeToRefs, } from 'pinia'
 import { useConsumersStore } from "@/Consumers/ConsumersStore";
+import type { PatchOrderInput } from "../orderApi";
+import { getStatusDeadline } from "./getStatusDeadline";
 const consumerStore = useConsumersStore();
 
 const ignoreAttrs = ['import_from', 'partner_name', 'accessory_count', 'layout_url', 'character_url', 'partner_paid']
@@ -18,6 +20,7 @@ const orderStore = useOrderStore()
 let orderData = reactive<any>({ consumer: null })
 
 const { order } = storeToRefs(orderStore);
+
 
 onBeforeMount(async () => {
   const result = await orderStore.fetchOrder({ id: `${route.params.id}` })
@@ -36,10 +39,30 @@ const transformFieldValFn = (field: string, entity: Record<string, any>) => {
 watch(() => route.params.id,  async newId => {
   await orderStore.fetchOrder({ id: `${newId}` })
 })
+
+const handleEditAttr = (payload: PatchOrderInput) => {
+  orderStore.editOrderAttribute(payload)
+}
+
+const deadlineStatus = computed(() => {
+  return order.value ? getStatusDeadline(order.value) : 'default'
+})
 </script>
     
-
 <template>
+
+<a-row :gutter="16">
+  <a-col :span="12">
+    <h3>Deadline</h3>
+    <a-result v-if="deadlineStatus === 'red'" status="warning" title="Bạn đã trễ đơn hàng"></a-result>
+    <a-tag v-else :color="deadlineStatus">
+      <a-statistic-countdown  style="{ color: }" :value="order?.deadline_at" format="D Ngày H giờ m phút s giây" />
+    </a-tag>
+
+  </a-col>
+</a-row>
+
+
 <EntityDetail 
     v-if="!!order"
     title="Thông tin đơn hàng"
@@ -49,6 +72,7 @@ watch(() => route.params.id,  async newId => {
     :ignoreAttrs="ignoreAttrs"
     :edittableAttrs="edittableAttrs"
     :transformFieldValFn="transformFieldValFn"
+    @editAttr="handleEditAttr"
 />
 <a-empty v-else></a-empty>
 </template>

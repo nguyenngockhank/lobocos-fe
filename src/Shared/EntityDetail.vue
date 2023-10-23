@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import type { PatchOrderInput } from '@/Orders/orderApi';
 import EntityFieldDisplay from './Entity/EntityFieldDisplay.vue'
 import EntityFieldEditor from './Entity/EntityFieldEditor.vue'
 import { EditOutlined } from '@ant-design/icons-vue';
-import { computed, reactive } from 'vue'
-const emit = defineEmits(['editAttr'])
+import { computed, reactive, watch } from 'vue'
+const emit = defineEmits<{
+  (e: 'editAttr', payload: PatchOrderInput): void
+}>()
 
 
 const { entity, typeMap, ignoreAttrs, edittableAttrs, transformFieldValFn } = defineProps<{
@@ -16,12 +19,12 @@ const { entity, typeMap, ignoreAttrs, edittableAttrs, transformFieldValFn } = de
     transformFieldValFn?: (field: string, entity: Record<string, any>) => any;
 }>()
 
-
-const entityState = reactive<{editingFields: string[], editingField: string; openEditModal: boolean; edittingValue: string}>({ 
+const entityState = reactive<{editingFields: string[], editingFieldModal: string; openEditModal: boolean; edittingModalValue: string}>({ 
     editingFields: [],
-    editingField: '',
+    // modal
     openEditModal: false,
-    edittingValue: '',
+    editingFieldModal: '',
+    edittingModalValue: '',
 })
 
 const renderFields = computed(() => {
@@ -41,10 +44,8 @@ function handleClickEdit(field: string) {
     console.log({ field })
     if (typeMap[field] === "html") {
         entityState.openEditModal = true
-        entityState.edittingValue = entity[field]
-        entityState.editingField = field
-
-        console.log({ entityState })
+        entityState.edittingModalValue = entity[field]
+        entityState.editingFieldModal = field
     } else {
         entityState.editingFields.push(field)
     }
@@ -66,14 +67,11 @@ function getFieldValue(field: string) {
     return entity[field];
 }
 
-function handleInputField(field: string, value: any) {
-    console.log({ field, value });
-    (window as any).avalue = value
-}
-
 function handleOkModal() {
-    emit('editAttr', { field: entityState.editingField, value: entityState.edittingValue })
-    // update ...
+    emit('editAttr', { 
+        field: entityState.editingFieldModal, 
+        value: entityState.edittingModalValue 
+    })
     entityState.openEditModal = false
 }
 </script>
@@ -92,7 +90,6 @@ function handleOkModal() {
             <EntityFieldEditor 
                 :value="entity[field]" 
                 :type="typeMap[field]" 
-                @input="(v: any) => handleInputField(field, v)"
             />
         </span>
         <a-space class="field-display" v-show="!isEdittingField(field)">
@@ -107,13 +104,13 @@ function handleOkModal() {
 </a-descriptions>
 
 <a-modal v-model:open="entityState.openEditModal" 
-    :title="`Sửa ${labelMap[entityState.editingField] || entityState.editingField}`" 
+    :title="`Sửa ${labelMap[entityState.editingFieldModal] || entityState.editingFieldModal}`" 
     @ok="handleOkModal"
 >
     <EntityFieldEditor 
-        :value="entityState.edittingValue"
-        @input="(e: string) => entityState.edittingValue = e"
-        :type="typeMap[entityState.editingField]"
+        :value="entity[entityState.editingFieldModal]"
+        :type="typeMap[entityState.editingFieldModal]"
+        @input="(e: string) => entityState.edittingModalValue = e"
     />
 </a-modal>
 </template>

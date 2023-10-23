@@ -30,3 +30,11 @@ export async function getOrder(orderId: string | number ) {
     const { data } = await apiClient.get<OrderResponse>(`/orders/restapi/order/${orderId}`);
     return data;
 }
+
+export type PatchOrderInput =  { field: string, value: any }
+
+export async function patchOrder(orderId: string | number, payload: PatchOrderInput) {
+    console.log('patch order', { orderId, payload })
+    const { data } = await apiClient.patch<OrderResponse>(`/orders/restapi/patch/${orderId}`, payload);
+    return data;
+}
