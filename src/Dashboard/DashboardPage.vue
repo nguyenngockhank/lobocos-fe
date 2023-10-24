@@ -1,27 +1,11 @@
 <template>
 <div>
-    <a-row>
-        <a-col :span="12">
-            <a-statistic title="Số lượng khách hàng" :value="112893" style="margin-right: 50px" />
+    <a-row style="margin-bottom: 20px;">
+        <a-col :xl="6" :lg="6" :md="8" :span="12">
+            <a-statistic title="Số lượng khách hàng" :value="data?.stats?.consumer_count"  />
         </a-col>
-        <a-col :span="12">
-            <a-statistic title="Tổng số đơn" :value="112893" />
-        </a-col>
-        <a-col :span="12">
-            <a-statistic-countdown title="Day Level" :value="deadline" format="D Ngày H giờ m phút s giây" />
-            <a-statistic-countdown
-                title="Million Seconds countdown"
-                :value="deadline"
-                format="HH:mm:ss:SSS"
-                style="margin-right: 50px"
-            >
-                <template #prefix>
-                <span>There's only</span>
-                </template>
-                <template #suffix>
-                <span>left for the end.</span>
-                </template>
-            </a-statistic-countdown>
+        <a-col :xl="6" :lg="6" :md="8" :span="12">
+            <a-statistic title="Tổng số đơn" :value="data?.stats?.order_count" />
         </a-col>
     </a-row>
     <div>
@@ -31,5 +15,12 @@
 </template>
 
 <script lang="ts" setup>
-const deadline = Date.now() + 1000 * 60 * 60 * 20 * 2;
+import { onBeforeMount, reactive } from 'vue';
+import { type DashboardResponse, getSummaryStats } from './dashboardApi';
+
+const data = reactive<{ stats: DashboardResponse | null }>({ stats: null })
+
+onBeforeMount(async () => {
+    data.stats = await getSummaryStats()
+})
 </script>

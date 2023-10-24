@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PatchOrderInput } from '@/Orders/orderApi';
-import EntityFieldDisplay from './Entity/EntityFieldDisplay.vue'
-import EntityFieldEditor from './Entity/EntityFieldEditor.vue'
+import EntityFieldDisplay from './EntityFieldDisplay.vue'
+import EntityFieldEditor from './EntityFieldEditor.vue'
 import { EditOutlined } from '@ant-design/icons-vue';
 import { computed, reactive, watch } from 'vue'
 import type { AsyncExecute } from '@/Orders/types';

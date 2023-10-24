@@ -1,6 +1,6 @@
 
 <script lang="ts" setup>
-import EntityDetail from "@/Shared/EntityDetail.vue"
+import EntityDetail from "@/Shared/Entity/EntityDetail.vue"
 import { orderAttrLabelMap } from '../constants/orderAttrLabelMap'
 import { orderAttrTypeMap } from '../constants/orderAttrTypeMap'
 import { watch, reactive, onBeforeMount, computed, ref} from "vue";
