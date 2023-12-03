@@ -1,27 +1,15 @@
-<template>
-<a-layout-sider 
-  breakpoint="md"
-  collapsed-width="0"
->
-    <a-menu
-        v-model:openKeys="openKeys"
-        v-model:selectedKeys="selectedKeys"
-        :items="items"
-        @click="handleClick"
-    />
-</a-layout-sider>
-</template>
-
 <script setup>
 import { h, ref } from 'vue';
 import router from '@/Shared/router'
+import get from 'lodash/get'
 
 import {
   HomeOutlined,
   FileSearchOutlined,
   CalendarOutlined,
-  AppstoreOutlined,
+  WifiOutlined,
   UserOutlined,
+  RollbackOutlined,
 } from '@ant-design/icons-vue';
 
 const selectedKeys = ref([]);
@@ -68,44 +56,41 @@ const items = ref([
     label: 'Khách hàng',
     title: 'Khách hàng',
   },
-  // {
-  //   key: 'apps',
-  //   icon: () => h(AppstoreOutlined),
-  //   label: 'Tiện ích',
-  //   title: 'Navigation Three',
-  //   children: [
-  //     {
-  //       key: '3',
-  //       label: 'Option 3',
-  //       title: 'Option 3',
-  //     },
-  //     {
-  //       key: '4',
-  //       label: 'Option 4',
-  //       title: 'Option 4',
-  //     },
-  //     {
-  //       key: 'sub1-2',
-  //       label: 'Submenu',
-  //       title: 'Submenu',
-  //       children: [
-  //         {
-  //           key: '5',
-  //           label: 'Option 5',
-  //           title: 'Option 5',
-  //         },
-  //         {
-  //           key: '6',
-  //           label: 'Option 6',
-  //           title: 'Option 6',
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    key: 'old-dashboard',
+    icon: () => h(WifiOutlined),
+    label: 'Old Dashboard',
+    title: 'Old Dashboard',
+  },
+  {
+    key: 'logout',
+    icon: () => h(RollbackOutlined),
+    label: 'Logout',
+    title: 'Logout',
+  },
 ]);
+
 const handleClick = menuInfo => {
-  // console.log('click ', menuInfo);
+  if (menuInfo.key === 'logout') {
+    location.href = get(window, 'appData.baseUrl') + 'admin/authentication/logout'
+  }
+  if (menuInfo.key === 'old-dashboard') {
+    location.href = get(window, 'appData.baseUrl') + 'admin/dashboard/index2'
+  }
   router.push({ path: `/${menuInfo.key}` })
 };
 </script>
+
+<template>
+  <a-layout-sider 
+    breakpoint="md"
+    collapsed-width="0"
+  >
+      <a-menu
+          v-model:openKeys="openKeys"
+          v-model:selectedKeys="selectedKeys"
+          :items="items"
+          @click="handleClick"
+      />
+  </a-layout-sider>
+  </template>
