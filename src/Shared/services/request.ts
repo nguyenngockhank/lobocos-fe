@@ -6,6 +6,11 @@ const apiClient = axios.create({
     withCredentials: true,
 })
 
+const apiClient2 = axios.create({
+  baseURL: `${get(window, 'appData.baseUrl')}api`,
+  withCredentials: true,
+})
+
 apiClient.defaults.maxRedirects = 0;
 
 apiClient.interceptors.response.use((response: AxiosResponse<any, any>) => {
@@ -22,4 +27,4 @@ apiClient.interceptors.response.use((response: AxiosResponse<any, any>) => {
     return Promise.reject(error);
   });
 
-export { apiClient }
+export { apiClient, apiClient2 }

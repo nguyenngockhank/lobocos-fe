@@ -10,7 +10,6 @@
 import EntityDetail from "@/Shared/Entity/EntityDetail.vue"
 defineProps(['consumer'])
 
-
 const labelMap: Record<string, string> = {
     id: 'Mã KH',
     measure: 'Số đo',
@@ -20,9 +19,11 @@ const labelMap: Record<string, string> = {
     created_at: 'Ngày thêm',
     address: 'Địa chỉ',
     status: 'Trạng thái',
-    total_orders: 'Tổng đơn',
+    amount_spent: 'Tổng chi',
+    amount_incompleted: 'Cọc',
+    count_completed_orders: 'Đơn hoàng thành',
+    count_incompleted_orders: 'Đơn chưa hoàn thành',
     note: 'Ghi chú',
-    total_spent: 'Tổng chi',
     phone: 'Điện thoại',
 }
 
@@ -31,6 +32,7 @@ const typeMap: Record<string, string> = {
     measure: 'html',
     note: 'html',
     created_at: 'date',
-    total_spent: 'money',
+    amount_spent: 'money',
+    amount_incompleted: 'money',
 }
 </script>

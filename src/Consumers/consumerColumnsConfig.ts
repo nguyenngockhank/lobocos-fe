@@ -1,10 +1,16 @@
-import type { ConsumerResponse } from "./consumerApi";
+// import type { ConsumerResponse } from "./consumerApi";
+
+export type ConsumerDto = {
+    id: number
+    amount_spent: number
+    amount_incompleted: number
+}
 
 export const columnsConfig = [
     {
         title: 'Mã KH',
         key: 'id',
-        sorter: (a: ConsumerResponse, b: ConsumerResponse) => a.id - b.id,
+        sorter: (a: ConsumerDto, b: ConsumerDto) => a.id - b.id,
     },
     {
         title: 'Tên',
@@ -19,19 +25,29 @@ export const columnsConfig = [
     },
     {
         title: 'Tổng chi',
-        key: 'total_spent',
+        key: 'amount_spent',
         responsive: ['md'],
         defaultSortOrder: 'descend',
-        sorter: (a: ConsumerResponse, b: ConsumerResponse) => a.total_spent - b.total_spent,
+        sorter: (a: ConsumerDto, b: ConsumerDto) => a.amount_spent - b.amount_spent,
         sortDirections: ['descend'],
+    },
+    {
+        title: 'Đơn hoàn thành',
+        key: 'count_completed_orders',
+    },
+    {
+        title: 'Cọc',
+        key: 'amount_incompleted',
+        responsive: ['md'],
+        sorter: (a: ConsumerDto, b: ConsumerDto) => a.amount_incompleted - b.amount_incompleted,
+    },
+    {
+        title: 'Đơn chưa',
+        key: 'count_incompleted_orders',
     },
     {
         title: 'Địa chỉ',
         key: 'address',
         responsive: ['md'],
     },
-    // {
-    //     title: 'Action',
-    //     key: 'action',
-    // }
 ].map(item => ({...item, dataIndex: item.key }))

@@ -3,7 +3,7 @@
     {{ formatMoney(consumer.total_spent) }} 
 </a-tag> / 
 <a-tag :color="tagOrder" >
-    {{ consumer.total_orders }} đơn
+    {{ consumer.total_completed_orders }} đơn
 </a-tag>
 
 </template>
@@ -38,7 +38,7 @@ const tagOrder = (() => {
         'green': 10,
         'gold': 5,
     }
-    const totalOrders = consumer?.total_orders || 0;
+    const totalOrders = consumer?.total_completed_orders || 0;
     for(const tag in orderTotalMap) {
         if (totalOrders > orderTotalMap[tag]) {
             return tag;

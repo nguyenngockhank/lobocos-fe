@@ -63,7 +63,7 @@ export const usePageHeaderStore = defineStore('breadcrumb', () => {
     }
 
     const activeDashboard = () => setPageInfo(dashboardPageInfo)
-    const activeOrders = () => setPageInfo(ordersPageInfo)
+    const activeOrders = (title: string) => setPageInfo({...ordersPageInfo, title})
     const activeOrder = (orderId: string) => {
         setPageInfo({
             title: `Đơn hàng #${orderId}`,

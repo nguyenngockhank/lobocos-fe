@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import DashboardPage from '@/Dashboard/DashboardPage.vue'
-import OrdersPage from '@/Orders/OrdersPage.vue'
+import OrdersPageByMonth from '@/Orders/ByMonth/OrdersPageByMonth.vue'
+import OrdersPageByRange from '@/Orders/ByRange/OrdersPageByRange.vue'
+import OrdersPageByStatus from '@/Orders/ByStatus/OrdersPageByStatus.vue'
 import OrderPage from '@/Orders/Order/OrderPage.vue'
 import CalendarPage from '@/Calendar/CalendarPage.vue'
 import ConsumersPage from '@/Consumers/ConsumersPage.vue'
@@ -16,9 +18,20 @@ const router = createRouter({
       component: DashboardPage
     },
     {
-      path: '/orders',
-      name: 'orders',
-      component: OrdersPage
+      alias: '/orders',
+      path: '/orders-by-month',
+      name: 'orders-by-month',
+      component: OrdersPageByMonth
+    },
+    {
+      path: '/orders-by-range',
+      name: 'orders-by-range',
+      component: OrdersPageByRange
+    },
+    {
+      path: '/orders-by-status',
+      name: 'orders-by-status',
+      component: OrdersPageByStatus
     },
     {
       path: '/orders/:id',
@@ -46,8 +59,14 @@ router.beforeEach((to, from, next) => {
     case "/dashboard":
       store.activeDashboard()
       break;
-    case "/orders":
-      store.activeOrders()
+    case "/orders-by-month":
+      store.activeOrders('Đơn theo tháng')
+      break;
+    case "/orders-by-range":
+      store.activeOrders('Đơn theo khoảng thời gian')
+      break;
+    case "/orders-by-status":
+      store.activeOrders('Đơn theo tình trạng')
       break;
     case "/calendar":
       store.activeCalendar()

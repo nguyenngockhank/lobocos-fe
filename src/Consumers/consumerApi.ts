@@ -1,15 +1,15 @@
-import { apiClient } from "@/Shared/services/request";
+import { apiClient2 } from "@/Shared/services/request";
 
 export type ConsumerResponse = {
     id: number;
     facebook_link: string;
     fullname: string;
-    total_orders: number;
     total_spent: number;
     address: string | null;
+    orders: Array<any>;
 }
 
 export async function fetchAllConsumers() : Promise<ConsumerResponse[]>{
-    const { data } = await apiClient.get<ConsumerResponse[]>('/consumers/restapi/all');
+    const { data } = await apiClient2.get<ConsumerResponse[]>('/consumers/all');
     return data; 
 }

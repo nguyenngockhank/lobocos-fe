@@ -21,7 +21,6 @@ let orderData = reactive<any>({ consumer: null })
 
 const { order } = storeToRefs(orderStore);
 
-
 onBeforeMount(async () => {
   const result = await orderStore.fetchOrder({ id: `${route.params.id}` })
   const consumerDto = await consumerStore.fetchConsumer(result?.consumer_id || "")

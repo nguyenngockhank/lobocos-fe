@@ -7,6 +7,10 @@ export const orderColumnsConfig = [
         sorter: (a: OrderResponse, b: OrderResponse) => a.id - b.id,
     },
     {
+        title: 'Hạn',
+        key: 'deadline_at',
+    },
+    {
         title: 'Khách',
         key: 'fullname',
     },
@@ -15,13 +19,13 @@ export const orderColumnsConfig = [
         key: 'image',
     },
     {
-        title: 'Thanh toán',
+        title: 'Tổng đơn',
         key: 'total',
     },
-    // {
-    //     title: 'Deadline',
-    //     key: 'deadline_at',
-    // },
+    {
+        title: 'Đã nhận',
+        key: 'total_paid',
+    },
     {
         title: 'Note',
         key: 'note',
@@ -32,4 +36,8 @@ export const orderColumnsConfig = [
         key: 'address',
         responsive: ['md'],
     },
+    {
+        key: 'action',
+        title: 'Action',
+    }
 ].map(item => ({...item, dataIndex: item.key }))
