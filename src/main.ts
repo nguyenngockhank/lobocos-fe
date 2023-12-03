@@ -5,6 +5,7 @@ import Antd from 'ant-design-vue';
 
 
 import 'ant-design-vue/dist/reset.css';
+import './main.css'
 
 import App from './Shared/layouts/App.vue'
 const app = createApp(App)

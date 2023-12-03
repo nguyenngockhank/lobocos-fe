@@ -1,0 +1,12 @@
+.order-unknown {
+    background-color: #ddd;
+}
+.order-pending, .order-pending:hover {
+    background-color: rgb(255, 251, 230)!important;
+}
+.order-cancel, .order-cancel:hover {
+    background-color: rgb(255,242,240)!important;
+}
+.order-completed, .order-completed:hover  {
+    background-color: rgb(246, 255, 237)!important;
+}

@@ -30,8 +30,7 @@ const showEditModal = (record: any) => {
 
 const handleUpdate = async (e: MouseEvent) => {
   const rawValues = JSON.parse(JSON.stringify(formEditState))
-
-  const [deadlineDate] = rawValues.deadline_at?.split('T') || ["2000-01-01"]
+  const deadlineDate = formEditState.deadlinedayjs.format(DAYJS_FORMAT)
   await orderStore.patch(rawValues.id, {
     total_paid: rawValues.total_paid,
     deadline_at: deadlineDate,
@@ -45,6 +44,7 @@ const handleUpdate = async (e: MouseEvent) => {
 <template>
 <a-table :columns="columns" :row-key="(record: any) => record.id" :data-source="orders" 
     :pagination="false"
+    :rowClassName="(record: any) => `order-${record.status}`"
 >
     <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'id'">
