@@ -6,8 +6,9 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    outDir: '../lobocos-be/assets',
-    assetsDir: 'dashboard2',
+    outDir: '../lobocos-be/assets/dashboard2',
+    assetsDir: 'static',
+    emptyOutDir: true,
     // outDir: '../lobocos-be/assets/dashboard2', // Specify the output directory
   },
   plugins: [
