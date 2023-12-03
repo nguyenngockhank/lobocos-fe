@@ -64,17 +64,17 @@ function makeOrderStates(orders: OrderResponse[]) {
         }
     })
 
-    const patternList = orders.filter(o => o.status != 'completed').map((order): CalendarItem => {
-        const { id, deadline_at, fullname } = order;
-        return {
-            ...attrsMap.pattern,
-            id,
-            deadline_at,
-            type: 'pattern',
-            start: subtractDays(new Date(deadline_at), 10),
-            title: `#${id} ${fullname}`
-        }
-    })
+    // const patternList = orders.filter(o => o.status != 'completed').map((order): CalendarItem => {
+    //     const { id, deadline_at, fullname } = order;
+    //     return {
+    //         ...attrsMap.pattern,
+    //         id,
+    //         deadline_at,
+    //         type: 'pattern',
+    //         start: subtractDays(new Date(deadline_at), 10),
+    //         title: `#${id} ${fullname}`
+    //     }
+    // })
 
 
     const depositedList = orders.filter(o => o.status != 'completed').map((order): CalendarItem => {
@@ -90,7 +90,7 @@ function makeOrderStates(orders: OrderResponse[]) {
     })
 
     result.push(...deadlineList)
-    result.push(...patternList)
+    // result.push(...patternList)
     result.push(...depositedList)
     result.push(...completedList)
 

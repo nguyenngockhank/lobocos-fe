@@ -59,10 +59,10 @@ const orderStateInfoMap: Record<string, { color: string; label: string }> = {
     color: 'gold',
     label: 'Cọc tiền',
   },
-  pattern: {
-    color: 'magenta',
-    label: 'Xong bản dập',
-  },
+  // pattern: {
+  //   color: 'magenta',
+  //   label: 'Xong bản dập',
+  // },
   deadline: {
     color: 'default',
     label: 'Deadline',
