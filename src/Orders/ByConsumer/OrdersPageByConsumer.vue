@@ -1,7 +1,6 @@
 
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
-// import router from '@/Shared/router'
 import OrderListHeader from '../OrderListHeader.vue'
 import OrderList from '../OrderList.vue'
 import { useOrdersStore } from '../OrdersStore'
@@ -34,7 +33,6 @@ onBeforeMount(async () => {
 })
 
 onBeforeMount(async () => {
-    console.log(route)
     const consumerId = route.params.consumerId
     if (!consumerId) {
         return

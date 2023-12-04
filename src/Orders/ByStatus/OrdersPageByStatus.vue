@@ -1,21 +1,30 @@
 
 <script lang="ts" setup>
+import { useRouter, useRoute } from 'vue-router'
 import OrderListHeader from '../OrderListHeader.vue'
 import OrderList from '../OrderList.vue'
 import { useOrdersStore } from '../OrdersStore'
-import {  watch, onBeforeMount, ref,  } from 'vue';
+import {  onBeforeMount, ref,  } from 'vue';
 import { ORDER_STATUS_OPTIONS, DEFAULT_INPUT_WIDTH } from '@/constants';
+
+const router = useRouter()
+const route = useRoute()
 
 const statusInput = ref('unknown');
 const orderStore = useOrdersStore()
 
 onBeforeMount(() => {
+    const orderStatus = route.params.orderStatus
+    if (orderStatus && typeof orderStatus === 'string') {
+        statusInput.value = orderStatus
+    }
     orderStore.fetchOrdersByStatus({
         status: statusInput.value
     })
 })
 
 const handleChange = (value: string) => {
+    router.push({ path: `/orders-by-status/${value}` })
     orderStore.fetchOrdersByStatus({
         status: value
     })

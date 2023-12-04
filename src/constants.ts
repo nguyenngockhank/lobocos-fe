@@ -1,4 +1,5 @@
 export const DAYJS_FORMAT = 'YYYY-MM-DD';
+export const DAYJS_MONTH_FORMAT = 'YYYY-MM';
 
 export enum OrderStatus {
     'unknown' = 'unknown',

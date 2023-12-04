@@ -68,8 +68,11 @@ const handleUpdate = async (e: MouseEvent) => {
         </template>
         <template v-if="column.key === 'total'">
             <a-tag color="blue">{{ formatMoney(record.total) }}</a-tag>
-            <a-tag color="red" v-if="record.total === record.total_paid">
+            <a-tag color="red" v-if="record.total <= record.total_paid">
                 Đã nhận 100%
+            </a-tag>
+            <a-tag color="purple" v-else-if="record.total <= (record.total_paid * 2)">
+                Đã nhận > 50%
             </a-tag>
         </template>
         <template v-if="column.key === 'total_paid'">

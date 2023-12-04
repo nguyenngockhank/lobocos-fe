@@ -1,32 +1,45 @@
 
 <script lang="ts" setup>
+import { useRouter, useRoute } from 'vue-router'
 import OrderList from "../OrderList.vue"
 import OrderListHeader from "../OrderListHeader.vue"
-import dayjs from 'dayjs';
+import dayjs, { Dayjs }  from 'dayjs';
 import { useOrdersStore } from '../OrdersStore'
 import {  onBeforeMount, ref, watch } from 'vue';
+import { dayjsToMonthDb } from '@/utils/date/dayjsToMonthDb';
+import { DAYJS_MONTH_FORMAT } from '@/constants';
 
+
+const router = useRouter()
+const route = useRoute()
 
 const chosenMonth = ref(dayjs())
 const orderStore = useOrdersStore()
 
 
 onBeforeMount(() => {
-    const dayjsObj = chosenMonth.value;
+    const month = route.params.month
+    if (month && typeof month === 'string' ) {
+        chosenMonth.value = dayjs(month, DAYJS_MONTH_FORMAT)
+    }
+
     orderStore.fetchOrdersByMonth({
-        year: dayjsObj.year(),
-        month: dayjsObj.month(),
+        year: chosenMonth.value.year(),
+        month: chosenMonth.value.month(),
     })
 })
 
-watch(chosenMonth, async (newMonth) => {
-  if (newMonth) {
+
+const handleChange = (newMonth: Dayjs) => {
+    const year = newMonth.year()
+    const month = newMonth.month()
+    router.push({ path: `/orders-by-month/${dayjsToMonthDb(newMonth)}`})
+
     orderStore.fetchOrdersByMonth({
-        year: newMonth.year(),
-        month: newMonth.month(),
+        year,
+        month,
     })
-  }
-})
+};
 </script>
 <style>
 .month-picker__container {
@@ -40,6 +53,7 @@ watch(chosenMonth, async (newMonth) => {
         Khoảng thời gian
         <a-date-picker 
             v-model:value="chosenMonth" 
+            @change="handleChange"
             picker="month" 
         />
     </a-col>

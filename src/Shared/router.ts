@@ -21,6 +21,11 @@ const router = createRouter({
     {
       alias: '/orders',
       path: '/orders-by-month',
+      name: 'orders-by-month-filter',
+      component: OrdersPageByMonth
+    },
+    {
+      path: '/orders-by-month/:month',
       name: 'orders-by-month',
       component: OrdersPageByMonth
     },
@@ -31,6 +36,11 @@ const router = createRouter({
     },
     {
       path: '/orders-by-status',
+      name: 'orders-by-status-filter',
+      component: OrdersPageByStatus
+    },
+    {
+      path: '/orders-by-status/:orderStatus',
       name: 'orders-by-status',
       component: OrdersPageByStatus
     },
@@ -70,17 +80,8 @@ router.beforeEach((to, from, next) => {
     case "/dashboard":
       store.activeDashboard()
       break;
-    case "/orders-by-month":
-      store.activeOrders('Đơn trong tháng')
-      break;
     case "/orders-by-range":
       store.activeOrders('Đơn trong khoảng thời gian')
-      break;
-    case "/orders-by-status":
-      store.activeOrders('Đơn theo tình trạng')
-      break;
-    case "/orders-by-consumer":
-      store.activeOrders('Đơn của khách')
       break;
     case "/calendar":
       store.activeCalendar()
@@ -94,7 +95,16 @@ router.beforeEach((to, from, next) => {
     case "orderdetail":
       store.activeOrder(to.params?.id?.toString() || '0');
       break;
+    case "orders-by-month":
+    case "orders-by-month-filter":
+      store.activeOrders('Đơn trong tháng')
+      break;
+    case "orders-by-status":
+    case "orders-by-status-filter":
+      store.activeOrders('Đơn theo tình trạng')
+      break;
     case "orders-by-consumer":
+    case "orders-by-consumer-filter":
       store.activeOrders('Đơn của khách')
       break;
   }
