@@ -1,19 +1,17 @@
 
 <script lang="ts" setup>
 import EntityDetail from "@/Shared/Entity/EntityDetail.vue"
-import { orderAttrLabelMap } from '../constants/orderAttrLabelMap'
-import { orderAttrTypeMap } from '../constants/orderAttrTypeMap'
-import { watch, reactive, onBeforeMount, computed, ref} from "vue";
-import { useOrderStore } from './OrderStore'
+import { orderAttrLabelMap, orderAttrTypeMap } from '@/configs'
+import { watch, reactive, onBeforeMount, computed } from "vue";
+import { type PatchOrderInput, useOrderStore } from './OrderStore'
 import { useRoute } from 'vue-router'
 import { storeToRefs, } from 'pinia'
 import { useConsumersStore } from "@/Consumers/ConsumersStore";
-import type { PatchOrderInput } from "../orderApi";
 import { getStatusDeadline } from "./getStatusDeadline";
 const consumerStore = useConsumersStore();
 
 const ignoreAttrs = ['import_from', 'partner_name', 'accessory_count', 'layout_url', 'character_url', 'partner_paid']
-const edittableAttrs = ['consumer_id', 'status', 'measure', 'note', 'deadline_at']
+const edittableAttrs = [ 'measure','note']
 
 const route = useRoute();
 const orderStore = useOrderStore()

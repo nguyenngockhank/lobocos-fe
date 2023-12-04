@@ -3,7 +3,7 @@ import DashboardPage from '@/Dashboard/DashboardPage.vue'
 import OrdersPageByMonth from '@/Orders/ByMonth/OrdersPageByMonth.vue'
 import OrdersPageByRange from '@/Orders/ByRange/OrdersPageByRange.vue'
 import OrdersPageByStatus from '@/Orders/ByStatus/OrdersPageByStatus.vue'
-import OrderPage from '@/Orders/Order/OrderPage.vue'
+import OrderDetailPage from '@/OrderDetail/OrderDetailPage.vue'
 import CalendarPage from '@/Calendar/CalendarPage.vue'
 import ConsumersPage from '@/Consumers/ConsumersPage.vue'
 import { usePageHeaderStore } from '@/Shared/PageHeaderStore'
@@ -36,7 +36,7 @@ const router = createRouter({
     {
       path: '/orders/:id',
       name: 'orderdetail',
-      component: OrderPage,
+      component: OrderDetailPage,
     },
     {
       path: '/calendar',

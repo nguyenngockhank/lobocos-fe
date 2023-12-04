@@ -1,6 +1,7 @@
 export const orderAttrTypeMap: Record<string, string> = {
     image: 'image',
     note: 'html',
+    measure: 'html',
     total: 'money',
     total_paid: 'money',
     created_at: 'date',

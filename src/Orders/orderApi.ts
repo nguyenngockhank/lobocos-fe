@@ -64,7 +64,7 @@ export async function getOrder(orderId: string | number ) {
     return data;
 }
 
-export type PatchOrderInput =  { field: string, value: any }
+
 
 export async function patchOrder(orderId: string | number, payload: Record<string, any>) {
     console.log('patch order', { orderId, payload })
@@ -72,8 +72,9 @@ export async function patchOrder(orderId: string | number, payload: Record<strin
     return data;
 }
 
-export async function patchOrderField(orderId: string | number, payload: PatchOrderInput) {
-    console.log('patch order field', { orderId, payload })
-    const { data } = await apiClient.patch<OrderResponse>(`/orders/restapi/patch/${orderId}`, payload);
-    return data;
-}
+
+// export async function patchOrderField(orderId: string | number, payload: PatchOrderInput) {
+//     console.log('patch order field', { orderId, payload })
+//     const { data } = await apiClient.patch<OrderResponse>(`/orders/restapi/patch/${orderId}`, payload);
+//     return data;
+// }

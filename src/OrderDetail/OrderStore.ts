@@ -1,9 +1,11 @@
 import type { OrderResponse } from "@/Calendar/calendarApi";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { getOrder, patchOrderField, type PatchOrderInput } from "../orderApi";
+import { getOrder, patchOrder } from "../Orders/orderApi";
 import set from "lodash/set";
 import get from "lodash/get";
+
+export type PatchOrderInput =  { field: string, value: any }
 
 export const useOrderStore = defineStore('order', () => {
     const order = ref<OrderResponse | null>(null)
@@ -23,7 +25,7 @@ export const useOrderStore = defineStore('order', () => {
             return false;
         }
 
-        await patchOrderField(order.value.id, payload)
+        await patchOrder(order.value.id, {[payload.field]: payload.value})
         set(order.value, payload.field, payload.value);
     }
     return { order, fetchOrder, editOrderAttribute }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { orderColumnsConfig as columns } from './constants/orderColumnsConfig'
+import { orderColumnsConfig as columns } from './config/orderColumnsConfig'
 import { formatMoney } from "@/utils/formatMoney"
 import ConsumerId from "@/Consumers/ConsumerId.vue"
 import ConsumerName from "@/Consumers/ConsumerName.vue"

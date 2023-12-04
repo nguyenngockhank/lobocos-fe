@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { PatchOrderInput } from '@/Orders/orderApi';
 import EntityFieldDisplay from './EntityFieldDisplay.vue'
 import EntityFieldEditor from './EntityFieldEditor.vue'
 import { EditOutlined } from '@ant-design/icons-vue';
-import { computed, reactive, watch } from 'vue'
+import { computed, reactive,  } from 'vue'
 import type { AsyncExecute } from '@/Orders/types';
+import type { PatchOrderInput } from '@/OrderDetail/OrderStore';
 
 const emit = defineEmits<{
   (e: 'editAttr', payload: PatchOrderInput): void
@@ -68,7 +68,6 @@ function getFieldValue(field: string) {
     }
     return entity[field];
 }
-
 
 async function handleEditAttr(field: any, value: any) {
     emit('editAttr', { field, value })
