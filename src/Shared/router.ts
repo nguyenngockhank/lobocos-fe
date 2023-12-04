@@ -3,6 +3,7 @@ import DashboardPage from '@/Dashboard/DashboardPage.vue'
 import OrdersPageByMonth from '@/Orders/ByMonth/OrdersPageByMonth.vue'
 import OrdersPageByRange from '@/Orders/ByRange/OrdersPageByRange.vue'
 import OrdersPageByStatus from '@/Orders/ByStatus/OrdersPageByStatus.vue'
+import OrdersPageByConsumer from '@/Orders/ByConsumer/OrdersPageByConsumer.vue'
 import OrderDetailPage from '@/OrderDetail/OrderDetailPage.vue'
 import CalendarPage from '@/Calendar/CalendarPage.vue'
 import ConsumersPage from '@/Consumers/ConsumersPage.vue'
@@ -34,6 +35,11 @@ const router = createRouter({
       component: OrdersPageByStatus
     },
     {
+      path: '/orders-by-consumer',
+      name: 'orders-by-consumer',
+      component: OrdersPageByConsumer
+    },
+    {
       path: '/orders/:id',
       name: 'orderdetail',
       component: OrderDetailPage,
@@ -60,13 +66,16 @@ router.beforeEach((to, from, next) => {
       store.activeDashboard()
       break;
     case "/orders-by-month":
-      store.activeOrders('Đơn theo tháng')
+      store.activeOrders('Đơn trong tháng')
       break;
     case "/orders-by-range":
-      store.activeOrders('Đơn theo khoảng thời gian')
+      store.activeOrders('Đơn trong khoảng thời gian')
       break;
     case "/orders-by-status":
       store.activeOrders('Đơn theo tình trạng')
+      break;
+    case "/orders-by-consumer":
+      store.activeOrders('Đơn của khách')
       break;
     case "/calendar":
       store.activeCalendar()

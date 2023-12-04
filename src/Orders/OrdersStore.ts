@@ -1,7 +1,15 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { OrderResponse } from "@/Calendar/calendarApi";
-import { getOrdersByMonth, getOrdersByRange, getOrdersByStatus, patchOrder, type OrdersByMonthPayload, type OrdersByRange } from "./orderApi";
+import { 
+    getOrdersByMonth,
+    getOrdersByRange, 
+    getOrdersByStatus, 
+    getOrdersByConsumerId,
+    patchOrder, 
+    type OrdersByMonthPayload, 
+    type OrdersByRange 
+} from "./orderApi";
 import sortBy from "lodash/sortBy";
 
 function monthSlug({year, month}: OrdersByMonthPayload) {
@@ -34,9 +42,15 @@ export const useOrdersStore = defineStore('orders', () => {
         orders.value = sortBy(newData, 'deadline_at', 'desc'); 
     }
 
+    const fetchOrdersByConsumerId = async (payload: { consumerId: string }) => {
+        const newData = await getOrdersByConsumerId(payload)
+        orders.value = sortBy(newData, 'deadline_at', 'desc'); 
+    }
+
+
     const patch = async (orderId: string | number, payload: Record<string, any>) => {
         await patchOrder(orderId, payload)
     }
 
-    return { orders, patch, fetchOrdersByMonth, fetchOrdersByRange, fetchOrdersByStatus }
+    return { orders, patch, fetchOrdersByMonth, fetchOrdersByRange, fetchOrdersByStatus, fetchOrdersByConsumerId }
 })

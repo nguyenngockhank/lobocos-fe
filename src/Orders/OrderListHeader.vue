@@ -25,7 +25,7 @@ const sumTotalPaid = computed(() => {
 </style>
 
 <template>
-<a-col style="margin-bottom: 20px"  :sm="12" :md="16" :lg="18" >
+<a-col style="margin-bottom: 20px" :sm="12" :md="16" :lg="18" >
     <a-tag color="default">{{ orders.length }} đơn</a-tag>
     <a-tag color="blue">{{ formatMoney(sumTotal) }}</a-tag> - 
     <a-tag color="success">{{ formatMoney(sumTotalPaid) }}</a-tag> =

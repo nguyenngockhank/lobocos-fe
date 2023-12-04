@@ -15,13 +15,11 @@ onBeforeMount(() => {
     })
 })
 
-watch(statusInput, async (newVal) => {
-  if (newVal) {
+const handleChange = (value: string) => {
     orderStore.fetchOrdersByStatus({
-        status: newVal
+        status: value
     })
-  }
-})
+};
 </script>
 <style>
 .month-picker__container {
@@ -37,6 +35,7 @@ watch(statusInput, async (newVal) => {
             ref="select"
             :options="ORDER_STATUS_OPTIONS"
             v-model:value="statusInput"
+            @change="handleChange"
             :style="`width: ${DEFAULT_INPUT_WIDTH}`"
         />
     </a-col>

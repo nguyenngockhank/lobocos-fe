@@ -13,6 +13,17 @@ export type OrdersByRange =  {
     endDate: string;
 }
 
+export async function getOrdersByConsumerId({ consumerId }: { consumerId: string }) {
+    const { data } = await apiClient.post<OrderResponse[]>('/orders/restapi/by_consumer/' + consumerId);
+    return data.map(o => {
+        return {
+            ...o,
+            total: Number(o.total),
+            total_paid: Number(o.total_paid),
+        }
+    });
+}
+
 export async function getOrdersByStatus({ status }: { status: string }) {
     const { data } = await apiClient.post<OrderResponse[]>('/orders/restapi/by_status/' + status);
     return data.map(o => {

@@ -29,18 +29,23 @@ const items = ref([
     children: [
       {
         key: 'orders-by-month',
-        label: 'Theo tháng',
-        title: 'Đơn theo tháng',
+        label: 'Trong tháng',
+        title: 'Đơn trong tháng',
       },
       {
         key: 'orders-by-range',
-        label: 'Theo khoảng thời gian',
-        title: 'Đơn theo khoảng thời gian',
+        label: 'Trong thời gian',
+        title: 'Đơn trong khoảng thời gian',
       },
       {
         key: 'orders-by-status',
         label: 'Theo tình trạng',
         title: 'Đơn theo tình trạng',
+      },
+      {
+        key: 'orders-by-consumer',
+        label: 'Đơn của khách',
+        title: 'Đơn của khách',
       },
     ]
   },
