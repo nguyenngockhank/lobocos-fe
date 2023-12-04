@@ -10,11 +10,13 @@
 
 <FullCalendar :options="calendarOptions">
   <template v-slot:eventContent='arg'>
-    <span class="event-title" :title="arg.event.title">
-      <a-tag :color="orderStateInfoMap[arg.event.extendedProps.type].color">
-        {{ arg.event.title }}
-      </a-tag>
-    </span>
+    <router-link :to="`/orders/${arg.event.id}`">
+      <span class="event-title" :title="arg.event.title">
+        <a-tag :color="orderStateInfoMap[arg.event.extendedProps.type].color">
+          {{ arg.event.title }}
+        </a-tag>
+      </span>
+    </router-link>
   </template>
 </FullCalendar>
 </template>
