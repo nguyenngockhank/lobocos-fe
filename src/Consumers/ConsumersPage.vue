@@ -41,12 +41,9 @@ const { consumers } = storeToRefs(consumersStore);
             {{ formatMoney(record.amount_incompleted) }} 
         </template>
         <template v-if="column.key === 'action'">
-            <!-- <a-popconfirm
-                title="Sure to delete?"
-                @confirm="() => {  return true; }"
-                >
-                <a>Delete</a>
-            </a-popconfirm> -->
+            <router-link :to="'/orders-by-consumer/' + record.id">
+                <a-button>Xem đơn</a-button>
+            </router-link>
         </template>
     </template>
     <template #expandedRowRender="{ record }">

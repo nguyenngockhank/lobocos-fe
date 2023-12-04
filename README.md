@@ -32,8 +32,16 @@ https://pinia.vuejs.org/core-concepts/outside-component-usage.html
 
 https://fullcalendar.io/docs/handlers
 
+https://router.vuejs.org/guide/advanced/composition-api
 
 
+## Links
 
-
+```vue
+<router-link :to="'/orders/' + value">
+    <a-tag color="magenta">
+        #{{ value }}
+    </a-tag>
+</router-link>
+```
 

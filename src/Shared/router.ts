@@ -36,6 +36,11 @@ const router = createRouter({
     },
     {
       path: '/orders-by-consumer',
+      name: 'orders-by-consumer-filter',
+      component: OrdersPageByConsumer
+    },
+    {
+      path: '/orders-by-consumer/:consumerId',
       name: 'orders-by-consumer',
       component: OrdersPageByConsumer
     },
@@ -88,6 +93,9 @@ router.beforeEach((to, from, next) => {
   switch(to.name) {
     case "orderdetail":
       store.activeOrder(to.params?.id?.toString() || '0');
+      break;
+    case "orders-by-consumer":
+      store.activeOrders('Đơn của khách')
       break;
   }
 

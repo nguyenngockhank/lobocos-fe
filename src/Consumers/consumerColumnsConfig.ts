@@ -61,4 +61,8 @@ export const columnsConfig = [
         key: 'address',
         responsive: ['md'],
     },
+    {
+        title: 'Action',
+        key: 'action',
+    },
 ].map(item => ({...item, dataIndex: item.key }))

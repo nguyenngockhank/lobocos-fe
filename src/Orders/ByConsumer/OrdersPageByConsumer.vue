@@ -1,5 +1,7 @@
 
 <script lang="ts" setup>
+import { useRouter, useRoute } from 'vue-router'
+// import router from '@/Shared/router'
 import OrderListHeader from '../OrderListHeader.vue'
 import OrderList from '../OrderList.vue'
 import { useOrdersStore } from '../OrdersStore'
@@ -7,33 +9,48 @@ import { onBeforeMount, ref, computed } from 'vue'
 import { useConsumersStore } from '@/Consumers/ConsumersStore';
 import { storeToRefs } from 'pinia'
 
+const router = useRouter()
+const route = useRoute()
+
 const consumersStore = useConsumersStore()
 
-onBeforeMount(async () => {
-    await consumersStore.fetchConsumers()
-});
 const { consumers } = storeToRefs(consumersStore);
 
 const consumerOptions = computed(() => {
     return consumers.value.map((c: any) => {
         return {
             label: `#${c.id} ${c.fullname}`,
-            value: c.id,
+            value: `${c.id}`,
         }
     })
 })
 
-const statusInput = ref('unknown');
+const consumerSelected = ref('unknown');
 const orderStore = useOrdersStore()
 
 
-onBeforeMount(() => {
-    // orderStore.fetchOrdersByStatus({
-    //     status: statusInput.value
-    // })
+onBeforeMount(async () => {
+    await consumersStore.fetchConsumers()
+})
+
+onBeforeMount(async () => {
+    console.log(route)
+    const consumerId = route.params.consumerId
+    if (!consumerId) {
+        return
+    }
+    if (typeof consumerId !== 'string') {
+        return
+    }
+
+    await orderStore.fetchOrdersByConsumerId({
+        consumerId 
+    })
+    consumerSelected.value = consumerId
 })
 
 const handleChange = (value: string) => {
+    router.push({ path: `/orders-by-consumer/${value}` })
     orderStore.fetchOrdersByConsumerId({
         consumerId: value
     })
@@ -51,7 +68,7 @@ const handleChange = (value: string) => {
         Khách hàng
         <a-select
             ref="select"
-            v-model:value="statusInput"
+            v-model:value="consumerSelected"
             style="width: 250px"
             @change="handleChange"
             :options="consumerOptions"
