@@ -12,6 +12,8 @@ import { reactive, ref } from 'vue'
 import { DAYJS_FORMAT } from '@/constants'
 import dayjs from 'dayjs';
 
+import { ORDER_STATUS_OPTIONS, DEFAULT_INPUT_WIDTH } from '@/constants';
+
 const orderStore = useOrdersStore()
 const { orders } = storeToRefs(orderStore);
 
@@ -91,22 +93,18 @@ const handleUpdate = async (e: MouseEvent) => {
             <a-select
                 ref="select"
                 v-model:value="formEditState.status"
-                style="width: 120px"
-            >
-                <a-select-option value="unknown">Unknown</a-select-option>
-                <a-select-option value="pending">Hoãn</a-select-option>
-                <a-select-option value="cancel">Huỷ</a-select-option>
-                <a-select-option value="completed">Hoàn thành</a-select-option>
-            </a-select>
+                :style="`width: ${DEFAULT_INPUT_WIDTH}`"
+                :options="ORDER_STATUS_OPTIONS"
+            />
         </a-form-item>
         <a-form-item label="Hạn">
-            <a-date-picker v-model:value="formEditState.deadlinedayjs" />
+            <a-date-picker :style="`width: ${DEFAULT_INPUT_WIDTH}`" v-model:value="formEditState.deadlinedayjs" />
         </a-form-item>
         <a-form-item label="Tổng đơn">
-            <a-input-number  style="width: 200px" disabled v-model:value="formEditState.total" />
+            <a-input-number  :style="`width: ${DEFAULT_INPUT_WIDTH}`" disabled v-model:value="formEditState.total" />
         </a-form-item>
         <a-form-item label="Đã nhận">
-            <a-input-number  style="width: 200px" :step="100000" v-model:value="formEditState.total_paid" />
+            <a-input-number  :style="`width: ${DEFAULT_INPUT_WIDTH}`" :step="100000" v-model:value="formEditState.total_paid" />
         </a-form-item>
     </a-form>
 </a-modal>

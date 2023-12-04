@@ -4,17 +4,14 @@ import OrderListHeader from '../OrderListHeader.vue'
 import OrderList from '../OrderList.vue'
 import { useOrdersStore } from '../OrdersStore'
 import {  watch, onBeforeMount, ref,  } from 'vue';
+import { ORDER_STATUS_OPTIONS, DEFAULT_INPUT_WIDTH } from '@/constants';
 
 const statusInput = ref('unknown');
-
 const orderStore = useOrdersStore()
-
 
 onBeforeMount(() => {
     orderStore.fetchOrdersByStatus({
         status: statusInput.value
-        // startDate: rangeInput.value[0].format(dateFormat),
-        // endDate: rangeInput.value[1].format(dateFormat),
     })
 })
 
@@ -38,14 +35,10 @@ watch(statusInput, async (newVal) => {
         Theo tình trạng 
         <a-select
             ref="select"
+            :options="ORDER_STATUS_OPTIONS"
             v-model:value="statusInput"
-            style="width: 120px"
-        >
-            <a-select-option value="unknown">Unknown</a-select-option>
-            <a-select-option value="pending">Hoãn</a-select-option>
-            <a-select-option value="cancel">Huỷ</a-select-option>
-            <a-select-option value="completed">Hoàn thành</a-select-option>
-        </a-select>
+            :style="`width: ${DEFAULT_INPUT_WIDTH}`"
+        />
     </a-col>
     <OrderListHeader />
 </a-row>   
