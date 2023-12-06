@@ -1,11 +1,11 @@
 
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
-import OrderList from "../OrderList.vue"
+import OrderList from "../OrderList/OrderList.vue"
 import OrderListHeader from "../OrderListHeader.vue"
 import dayjs, { Dayjs }  from 'dayjs';
 import { useOrdersStore } from '../OrdersStore'
-import {  onBeforeMount, ref, watch } from 'vue';
+import { onBeforeMount, ref, watch } from 'vue';
 import { dayjsToMonthDb } from '@/utils/date/dayjsToMonthDb';
 import { DAYJS_MONTH_FORMAT } from '@/constants';
 

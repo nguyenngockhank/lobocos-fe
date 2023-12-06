@@ -1,16 +1,18 @@
 <script lang="ts" setup>
-import { orderColumnsConfig as columns } from './config/orderColumnsConfig'
+import { orderColumnsConfig as columns } from '../config/orderColumnsConfig'
+import { useOrdersStore } from '../OrdersStore'
+import OrderId from '../OrderId.vue'
+
 import { formatMoney } from "@/utils/formatMoney"
 import ConsumerId from "@/Consumers/ConsumerId.vue"
 import ConsumerName from "@/Consumers/ConsumerName.vue"
-import OrderId from './OrderId.vue'
 import OrderDetail from './OrderDetail.vue'
 import Deadline from './OrderDeadline.vue'
 import { storeToRefs } from 'pinia'
-import { useOrdersStore } from './OrdersStore'
 import { reactive, ref } from 'vue'
 import { DAYJS_FORMAT } from '@/constants'
 import dayjs from 'dayjs';
+import ImageUrlInput from '@/Shared/ImageUrlInput.vue'
 
 import { ORDER_STATUS_OPTIONS, DEFAULT_INPUT_WIDTH } from '@/constants';
 
@@ -32,11 +34,13 @@ const showEditModal = (record: any) => {
 
 const handleUpdate = async (e: MouseEvent) => {
   const rawValues = JSON.parse(JSON.stringify(formEditState))
+  console.log({ rawValues })
   const deadlineDate = formEditState.deadlinedayjs.format(DAYJS_FORMAT)
   await orderStore.patch(rawValues.id, {
     total_paid: rawValues.total_paid,
     deadline_at: deadlineDate,
     status: rawValues.status,
+    image: rawValues.image,
   })
   openEditModal.value = false;
   location.reload()
@@ -94,9 +98,13 @@ const handleUpdate = async (e: MouseEvent) => {
 </a-table>
 
 <a-modal v-model:open="openEditModal" :title="`Đơn hàng #${formEditState.id}`" @ok="handleUpdate">
+    <!-- TODO: move form to another component -->
     <a-form layout='vertical' :model="formEditState">
         <a-form-item label="Khách hàng">
             <a-input :value="formEditState.fullname" disabled />
+        </a-form-item>
+        <a-form-item label="Hình ảnh">
+            <ImageUrlInput v-model="formEditState.image"  />
         </a-form-item>
         <a-form-item label="Tình trạng">
             <a-select

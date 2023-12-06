@@ -34,6 +34,16 @@ https://fullcalendar.io/docs/handlers
 
 https://router.vuejs.org/guide/advanced/composition-api
 
+## Vue 
+
+### Emit from script
+
+```ts
+const emit = defineEmits(['input'])
+
+// usage
+emit('input', value)
+```
 
 ## Links
 
@@ -44,4 +54,7 @@ https://router.vuejs.org/guide/advanced/composition-api
     </a-tag>
 </router-link>
 ```
+
+## Grid
+- 24 columns
 

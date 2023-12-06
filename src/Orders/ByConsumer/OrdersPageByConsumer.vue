@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
 import OrderListHeader from '../OrderListHeader.vue'
-import OrderList from '../OrderList.vue'
+import OrderList from '../OrderList/OrderList.vue'
 import { useOrdersStore } from '../OrdersStore'
 import { onBeforeMount, ref, computed } from 'vue'
 import { useConsumersStore } from '@/Consumers/ConsumersStore';

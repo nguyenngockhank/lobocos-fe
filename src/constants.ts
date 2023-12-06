@@ -6,13 +6,15 @@ export enum OrderStatus {
     'pending' = 'pending',
     'cancel' = 'cancel',
     'completed' = 'completed',
+    'archived' = 'archived',
 }
 
 export const ORDER_STATUS_LABEL_MAPPING: Record<OrderStatus, string> = {
     [OrderStatus['unknown']]: "Unknown",
     [OrderStatus['pending']]: "Hoãn",
     [OrderStatus['cancel']]: "Huỷ",
-    [OrderStatus['completed']]: "Hoàn thành"
+    [OrderStatus['completed']]: "Hoàn thành",
+    [OrderStatus['archived']]: "Lưu trữ",
 }
 
 export const ORDER_STATUS_OPTIONS = (() => {
@@ -25,4 +27,4 @@ export const ORDER_STATUS_OPTIONS = (() => {
 
 export const ORDER_STATUS = [];
 
-export const DEFAULT_INPUT_WIDTH = '200px'
+export const DEFAULT_INPUT_WIDTH = '100%'

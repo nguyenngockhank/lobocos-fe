@@ -1,7 +1,7 @@
 
 <script lang="ts" setup>
 import OrderListHeader from '../OrderListHeader.vue'
-import OrderList from '../OrderList.vue'
+import OrderList from '../OrderList/OrderList.vue'
 import { useOrdersStore } from '../OrdersStore'
 import { watch, onBeforeMount, ref } from 'vue';
 
@@ -25,7 +25,7 @@ onBeforeMount(() => {
     })
 })
 
-watch(rangeInput, async (newMonth) => {
+watch(rangeInput, (newMonth) => {
   if (newMonth) {
     orderStore.fetchOrdersByRange({
         startDate: rangeInput.value[0].format(DAYJS_FORMAT),
