@@ -5,6 +5,7 @@ export type ConsumerDto = {
     fullname: string
     amount_spent: number
     amount_incompleted: number
+    rank: string
 }
 
 const makeNumberSorter = (field: string) => {
@@ -25,6 +26,15 @@ export const columnsConfig = [
         sorter: (a: ConsumerDto, b: ConsumerDto) =>{
             const nameA = a.fullname.toUpperCase(); // ignore upper and lowercase
             const nameB = b.fullname.toUpperCase(); // ignore upper and lowercase
+            return nameA < nameB ? -1 : (nameA > nameB ? 1 : 0)
+        },
+    },
+    {
+        title: 'Rank',
+        key: 'rank',
+        sorter: (a: ConsumerDto, b: ConsumerDto) =>{
+            const nameA = a.rank?.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.rank?.toUpperCase(); // ignore upper and lowercase
             return nameA < nameB ? -1 : (nameA > nameB ? 1 : 0)
         },
     },

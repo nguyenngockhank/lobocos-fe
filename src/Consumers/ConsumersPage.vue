@@ -5,6 +5,7 @@ import { onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useConsumersStore } from './ConsumersStore'
 import ConsumerName from './ConsumerName.vue'
+import ConsumerRank from './ConsumerRank.vue'
 import ConsumerId from './ConsumerId.vue'
 // import ConsumerTotalSpent from './ConsumerTotalSpent.vue'
 import ConsumerDetail from './ConsumerDetail.vue'
@@ -33,6 +34,9 @@ const { consumers } = storeToRefs(consumersStore);
         </template>
         <template v-if="column.key === 'name'">
             <ConsumerName :consumer="record" />
+        </template>
+        <template v-if="column.key === 'rank'">
+            <ConsumerRank :consumer="record" />
         </template>
         <template v-if="column.key === 'amount_spent'">
             {{ formatMoney(record.amount_spent) }} 

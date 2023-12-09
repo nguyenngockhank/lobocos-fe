@@ -7,6 +7,7 @@ export type ConsumerResponse = {
     total_spent: number;
     address: string | null;
     orders: Array<any>;
+    rank?: string 
 }
 
 export async function fetchAllConsumers() : Promise<ConsumerResponse[]>{
