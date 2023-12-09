@@ -3,7 +3,7 @@
 import OrderListHeader from '../OrderListHeader.vue'
 import OrderList from '../OrderList.vue'
 import { useOrdersStore } from '../OrdersStore'
-import {  watch, onBeforeMount, ref,  } from 'vue';
+import { watch, onBeforeMount, ref } from 'vue';
 
 import dayjs, { Dayjs } from 'dayjs';
 import { DAYJS_FORMAT } from '@/constants';

@@ -1,26 +1,3 @@
-<template>
-<div style="margin-bottom: 10px;">
-<a-tag v-for="(stateInfo, key) in orderStateInfoMap" 
-  :color="stateInfo.color" 
-  :key="key"
->
-  {{ stateInfo.label }}
-</a-tag>
-</div>
-
-<FullCalendar :options="calendarOptions">
-  <template v-slot:eventContent='arg'>
-    <router-link :to="`/orders/${arg.event.id}`">
-      <span class="event-title" :title="arg.event.title">
-        <a-tag :color="orderStateInfoMap[arg.event.extendedProps.type].color">
-          {{ arg.event.title }}
-        </a-tag>
-      </span>
-    </router-link>
-  </template>
-</FullCalendar>
-</template>
-
 <script lang="ts" setup>
 import dayGridPlugin from '@fullcalendar/daygrid'
 import { getOrdersByDateRange } from './calendarApi'
@@ -75,6 +52,29 @@ const orderStateInfoMap: Record<string, { color: string; label: string }> = {
   }
 }
 </script>
+
+<template>
+  <div style="margin-bottom: 10px;">
+  <a-tag v-for="(stateInfo, key) in orderStateInfoMap" 
+    :color="stateInfo.color" 
+    :key="key"
+  >
+    {{ stateInfo.label }}
+  </a-tag>
+  </div>
+  
+  <FullCalendar :options="calendarOptions">
+    <template v-slot:eventContent='arg'>
+      <router-link :to="`/orders/${arg.event.id}`">
+        <span class="event-title" :title="arg.event.title">
+          <a-tag :color="orderStateInfoMap[arg.event.extendedProps.type].color">
+            {{ arg.event.title }}
+          </a-tag>
+        </span>
+      </router-link>
+    </template>
+  </FullCalendar>
+  </template>
 
 <style>
 .event-title{

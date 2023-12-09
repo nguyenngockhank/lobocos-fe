@@ -77,7 +77,11 @@ function makeOrderStates(orders: OrderResponse[]) {
     // })
 
 
-    const depositedList = orders.filter(o => o.status != 'completed').map((order): CalendarItem => {
+    const depositedList = orders.filter(o => o.status != 'completed').filter(o => {
+        const total_paid = +o.total_paid
+        const total = +o.total
+        return total_paid / total < 0.5
+    }).map((order): CalendarItem => {
         const { id, deadline_at, fullname } = order;
         return {
             ...attrsMap.deposited,
