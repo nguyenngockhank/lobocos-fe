@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import DashboardPage from '@/Dashboard/DashboardPage.vue'
+import PageOrderAdd from '@/OrderAdd/PageOrderAdd.vue'
 import OrdersPageByMonth from '@/Orders/ByMonth/OrdersPageByMonth.vue'
 import OrdersPageByRange from '@/Orders/ByRange/OrdersPageByRange.vue'
 import OrdersPageByStatus from '@/Orders/ByStatus/OrdersPageByStatus.vue'
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/orders-by-month',
       name: 'orders-by-month-filter',
       component: OrdersPageByMonth
+    },
+    {
+      path: '/orders/add',
+      name: 'add-order',
+      component: PageOrderAdd
     },
     {
       path: '/orders-by-month/:month',
@@ -94,6 +100,9 @@ router.beforeEach((to, from, next) => {
   switch(to.name) {
     case "orderdetail":
       store.activeOrder(to.params?.id?.toString() || '0');
+      break;
+    case 'add-order':
+      store.activeAddOrder()
       break;
     case "orders-by-month":
     case "orders-by-month-filter":

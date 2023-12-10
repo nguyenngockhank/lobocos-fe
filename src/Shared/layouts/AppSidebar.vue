@@ -47,6 +47,11 @@ const items = ref([
         label: 'Đơn của khách',
         title: 'Đơn của khách',
       },
+      {
+        key: 'orders/add',
+        label: 'Thêm đơn',
+        title: 'Thêm đơn',
+      },
     ]
   },
   {

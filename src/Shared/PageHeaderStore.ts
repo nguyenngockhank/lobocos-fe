@@ -51,6 +51,14 @@ const ordersPageInfo = {
     routes: [dashboardBreadItem, ordersBreadItem]
 }
 
+const orderAddPageInfo = {
+    title: 'Thêm đơn mới',
+    routes: [dashboardBreadItem, ordersBreadItem,  {
+        path: 'order/add',
+        breadcrumbName: 'Thêm đơn',
+    }]
+}
+
 export const usePageHeaderStore = defineStore('breadcrumb', () => {
     const routes = ref<BreadcrumbItem[]>([])
     const title = ref('Page Title')
@@ -64,6 +72,8 @@ export const usePageHeaderStore = defineStore('breadcrumb', () => {
 
     const activeDashboard = () => setPageInfo(dashboardPageInfo)
     const activeOrders = (title: string) => setPageInfo({...ordersPageInfo, title})
+    const activeAddOrder =  () => setPageInfo({...orderAddPageInfo, })
+
     const activeOrder = (orderId: string) => {
         setPageInfo({
             title: `Đơn hàng #${orderId}`,
@@ -81,6 +91,7 @@ export const usePageHeaderStore = defineStore('breadcrumb', () => {
     
     return { 
         routes, title, subtitle, 
+        activeAddOrder,
         activeDashboard, activeOrders, activeOrder, activeCalendar, activeConsumers, 
         setPageInfo 
     }
